@@ -1,0 +1,371 @@
+\documentclass[8pt]{article}
+\linespread{0.5} 
+\usepackage{extsizes}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{ mathrsfs }
+\usepackage{ mathtools}
+\usepackage{enumerate}
+\usepackage{bbm}
+\usepackage{lipsum}
+\usepackage{fancyhdr}
+\usepackage{tikz-cd} 
+\usepackage{adjustbox} 
+\usepackage{ stmaryrd }
+\numberwithin{equation}{section}
+\usetikzlibrary{arrows}
+\newcommand{\midarrow}{\tikz \draw[-triangle 90] (0,0) -- +(.1,0);}
+\tikzset{commutative diagrams/.cd,
+mysymbol/.style={start anchor=center,end anchor=center,draw=none}
+}
+\newcommand\comsymb[2][\circlearrowleft]{%
+  \arrow[mysymbol]{#2}[description]{#1}}
+
+\newtheorem{theorem}{Theorem} [section] 
+\newtheorem{proposition}{Proposition}[section] 
+\newtheorem{definition}{Definition}[section] 
+\newtheorem{lemma}{Lemma}[section] 
+\newtheorem{notation}{Notation}[section] 
+\newtheorem{remark}{Remark}[section] 
+\newtheorem{corollary}{Corollary} [section] 
+\newtheorem{terminology}{Terminology}[section] 
+\newtheorem{fact}{Fact}[section] 
+\newtheorem{example}{Example}[section] 
+\newtheorem{claim}{Claim}
+\newenvironment{claimproof}[1]{\par\noindent\underline{Proof:}\space#1}{\hfill $\blacksquare$}
+
+\DeclareMathOperator{\tmod}{mod}
+\DeclareMathOperator{\triv}{triv}
+\DeclareMathOperator{\ind}{ind}
+\DeclareMathOperator{\straw}{s.t.}
+\DeclareMathOperator{\ev}{ev}
+\DeclareMathOperator{\pr}{pr}
+\DeclareMathOperator{\Aut}{Aut}
+\DeclareMathOperator{\Map}{Map}
+\DeclareMathOperator{\Stab}{Stab}
+\DeclareMathOperator{\Ind}{Ind}
+\DeclareMathOperator{\GL}{GL}
+\DeclareMathOperator{\SL}{SL}
+\DeclareMathOperator{\SO}{SO}
+\DeclareMathOperator{\Sp}{Sp}
+\DeclareMathOperator{\esssup}{esssup}
+\DeclareMathOperator{\abs}{abs}
+\DeclareMathOperator{\rel}{rel}
+\DeclareMathOperator{\diam}{diam}
+\DeclareMathOperator{\rank}{rank}
+\DeclareMathOperator{\Hom}{Hom}
+\DeclareMathOperator{\Homk}{Hom_{k-alg}}
+\DeclareMathOperator{\Ker}{Ker}
+\DeclareMathOperator{\Image}{Im}
+\DeclareMathOperator{\Dom}{Dom}
+\DeclareMathOperator{\grad}{grad}
+\DeclareMathOperator{\divergence}{div}
+\DeclareMathOperator{\rk}{rk}
+\DeclareMathOperator{\Span}{Span}
+\DeclareMathOperator{\mSpec}{mSpec}
+\DeclareMathOperator{\MaxSpec}{MaxSpec}
+\DeclareMathOperator{\interior}{int}
+\DeclareMathOperator{\supp}{supp}
+\DeclareMathOperator{\id}{id}
+\DeclareMathOperator{\sgn}{sgn}
+\DeclareMathOperator{\Mat}{Mat}
+\DeclareMathOperator{\PD}{PD}
+\DeclareMathOperator{\ext}{ext}
+\DeclareMathOperator{\vol}{vol}
+\DeclareMathOperator{\inte}{int}
+\DeclareMathOperator{\diverg}{div}
+\DeclareMathOperator{\curl}{curl}
+\DeclareMathOperator{\image}{im}
+\DeclareMathOperator{\dR}{dR}
+\DeclareMathOperator{\Ob}{Ob}
+\DeclareMathOperator{\Mnfd}{Mnfd}
+\DeclareMathOperator{\OpEmb}{OpEmb}
+\DeclareMathOperator{\Spec}{Spec}
+\DeclareMathOperator{\Spa}{Spa}
+\DeclareMathOperator{\Lim}{Lim}
+\DeclareMathOperator{\Alg}{\mathcal{A}}
+\DeclareMathOperator{\glim}{glim}
+\DeclareMathOperator{\con}{con}
+\DeclareMathOperator{\Spv}{Spv}
+\DeclareMathOperator{\clet}{c}
+\DeclareMathOperator{\tat}{at}
+\DeclareMathOperator{\Sheaf}{Sheaf}
+\DeclareMathOperator{\Cont}{Cont}
+%\newcommand*{\name}[\num_arguments][default values]{{\color{#1}\Large #2}}
+\newcommand{\defeq}{\vcentcolon=}
+\newcommand{\Ouv}{\mathscr{O}}
+\newcommand{\norm}[1]{\Vert #1 \Vert}
+\newcommand{\opNorm}[2]{\norm{#1}_{#2\to#2}}
+\newcommand{\normL}[3]{\norm{#1}_{L^{#2}(#3)}}
+\newcommand{\N}[0]{\mathbb{N}}
+\newcommand{\m}[0]{\mathfrak{m}}
+\newcommand{\R}[0]{\mathbb{R}}
+\newcommand{\Z}[0]{\mathbb{Z}}
+\newcommand{\C}[0]{\mathbb{C}}
+\newcommand{\Q}[0]{\mathbb{Q}}
+\newcommand{\F}[0]{\mathcal{F}}
+\newcommand{\U}[0]{\mathcal{U}}
+\newcommand{\B}[0]{\mathcal{B}}
+\newcommand{\G}[0]{\mathbb{G}}
+\newcommand{\A}[0]{\mathbb{A}}
+\newcommand{\T}[0]{\mathbb{T}}
+\newcommand{\K}[0]{\mathcal{K}}
+\newcommand{\Para}[0]{\mathbb{P}}
+\newcommand{\M}[0]{\mathcal{M}}
+\newcommand{\maniN}[0]{\mathcal{N}}
+\newcommand{\cinf}[0]{\mathcal{C}^\infty}
+\newcommand{\torus}[0]{\mathbb{T}}
+\newcommand{\cR}[0]{\mathcal{R}}
+\newcommand{\sep}[0]{\:|\:}
+\newcommand{\pd}[2]{{\frac {\partial #1} {\partial #2}}}
+\newcommand{\compinc}[0]{\subset \subset}
+\newcommand{\sH}[0]{\mathscr{H}}
+\newcommand{\Nfil}[0]{\mathcal{N}}
+\newcommand{\g}[0]{\mathfrak{g}}
+\newcommand{\p}[0]{\mathfrak{p}}
+\newcommand{\QC}[0]{\mathfrak{Q}_C}
+\newcommand{\ab}[1]{\vert #1 \vert}
+\newcommand{\st}[0]{\:\straw\:}
+\newcommand{\cGamma}[0]{c\Gamma}
+\newcommand{\sC}[0]{\mathscr{C}}
+\newcommand{\Grp}[0]{\mathrm{Grp}}
+\newcommand{\op}[0]{\mathrm{op}}
+\newcommand{\Func}[0]{\mathrm{Func}}
+\newcommand{\sU}[0]{\mathscr{U}}
+\newcommand{\cV}[0]{\mathcal{V}}
+\newcommand{\sA}[0]{\mathscr{A}}
+\newcommand{\sB}[0]{\mathscr{B}}
+\newcommand{\sX}[0]{\mathscr{X}}
+\newcommand{\sS}[0]{\mathscr{S}}
+\newcommand{\sT}[0]{\mathscr{T}}
+\newcommand{\cB}[0]{\mathcal{B}}
+\newcommand{\cA}[0]{\mathcal{A}}
+\newcommand{\cC}[0]{\mathcal{C}}
+\newcommand{\cO}[0]{\mathcal{O}}
+\newcommand{\cT}[0]{\mathcal{T}}
+\newcommand{\cF}[0]{\mathcal{F}}
+\newcommand{\cG}[0]{\mathcal{G}}
+\newcommand{\nat}[0]{\mathrm{nat}}
+\newcommand{\tand}[0]{\text{ and }}
+\newcommand{\tor}[0]{\text{ or }}
+\newcommand{\dcirc}[0]{{\circ\circ}}
+\newcommand{\otherwise}[0]{\text{ otherwise }}
+\newcommand{\Rat}[0]{\mathfrak{Rat}}
+\newcommand{\polring}[1]{[X_1,\cdots,X_{#1}]}
+\newcommand{\compring}[1]{\langle X_1,\cdots,X_{#1}\rangle}
+\newcommand{\fib}[1]{%
+  \mathbin{\mathop{\times}\limits_{#1}}%
+}
+\newcommand{\tens}[1]{%
+  \mathbin{\mathop{\otimes}\displaylimits_{#1}}%
+}
+\newcommand{\comppol}[1]{\langle X_1,\cdots, X_{#1}\rangle}
+
+\title{Linear Algebraic Groups}
+\author{Based on Lectures given by\\\\Prof. Dr. Tasho Kaletha}
+\date{WSSe 26/27, University of Bonn}
+
+
+\begin{document}
+\maketitle
+
+%10/13
+\section{Introduction}
+The course concerns with algebraic groups. Primary examples are 
+\begin{example}
+    $\GL_2(k)$ for any field $k$.
+\end{example}
+
+\begin{remark}
+    ALmost all finite simple groups arise as $G(k)/Z_G(k)$ for $k$ a finite field and $G$ a simple simply connected algebraic group.
+\end{remark}
+
+\subsection{Recollection}
+
+\begin{definition}
+    A bi-product $(A,p_1:A\to A_1,A\to A_2)$ in a category $\sC$ is an object which is universal in terms of any object $B$ together with morphisms $f_1:B\to A_1,f_2:B\to A_2$.
+    That is, we have a unique morphism $B\to A$. We denote such $A$ to be $A_1\times A_2$. 
+    \par We define a finite product for $n$-many object similarly. For $n=0$, such product is called the terminal object.
+\end{definition}
+
+\begin{notation}
+As the terminal object $1_\sC$ admits a unique morphism into it from any object $A$, we denote such morphism as $1_A:A\to 1_\sC$.
+\end{notation}
+
+\begin{remark}
+    For $A\in\sC$, $A\times 1_\sC\to A$ given by the projection is an isomorphism with inverse $\id_A\times 1_A$.
+\end{remark}
+
+\begin{notation}
+    For $A\in\sC$, $\Delta:A\to A\times A$ is induced from $A\stackrel{\id_A}{\to} A$.
+\end{notation}
+
+\begin{definition}
+    \label{definition_1_1}
+    Let $\sC$ be a category admitting finite products. A group object in $\sC$ is a tuple $(G,m,i,e)$ such that 
+    \begin{equation*}
+        G\in\Ob(\sC), m:G\times G\to G, i:G\to G, e:1_\sC\to G,
+    \end{equation*}
+    satisfying the following properties.
+    \begin{enumerate}
+        \item $m$ is associative. (i.e. $m\circ(m\times\id_G) = m\circ(\id_G\times m)$).
+        \item $e$ is a $2$-sided unit. (i.e. $m\circ(\id_G\times e) = \id_G = m\circ(e\times \id_G)$).
+        \item $i$ is a $2$-sided inverse. (i.e. $m\circ(i\times\id_G)\circ\Delta = e\circ 1_G = m\circ(\id_G\times i)\circ \Delta$).
+    \end{enumerate}
+\end{definition}
+
+\begin{definition}
+    \label{definition_1_2}
+    A morphism of group objects is a morphism $f:G_1\to G_2$ such that 
+    \begin{equation*}
+        m_2\circ(f\times f)= f\circ m_1, i_2\circ f = f\circ i_1, e_2 = f\circ e_1.
+    \end{equation*}
+    Objects of groups together with these morphism form a subcategory which we will denote by $\Grp\sC$.
+\end{definition}
+
+\begin{remark}
+    \label{remark_1_3}
+    If $G$ is a gropu object in $\sC$, then for any $A\in\Ob(\sC)$, $\sC(A,G)$ inhertis a gropu structure as folows. 
+    \begin{enumerate}
+        \item $e_A\defeq e\circ 1_A,A \to 1\to G$,
+        \item $f_1\cdot f_2\defeq m\circ(f_1\times f_2)\circ\Delta_A$.
+        \item $f^{-1}\defeq i\circ f$.
+    \end{enumerate}
+    Furthermore, the assingment $A\mapsto \sC(A,G)$ is a contravariant functor $\sC\to \Grp$. Then $G\mapsto\sC(\cdot,G)$ is a contravariant functor $\Grp\sC\to \Func(\sC^\op,\Grp)$
+    which is an embedding (i.e. fully-faithful) by Yoneda lemma.
+    \par This is called the functor of points, we always have the abstract test group $G(1)$. In general, we will denote $G(A) \defeq \sC(A,G)$ for arbitrary $A\in\Ob(\sC)$.
+\end{remark}
+
+\begin{example}
+    In $\sC = \mathrm{Sets}$, the terminal object is the singleton set and $\Grp\sC = \Grp$. $G(1)$ contains all the information about it.
+\end{example}
+\begin{example}
+    For $\sC = \mathrm{Top}$, the terminal object is again the singleton set and $\Grp\sC = \mathrm{Top}\Grp$. 
+\end{example}
+\begin{example}
+    For $\sC = \mathrm{Mani}^\infty$ the category of smooth manifolds, the terminal object is again the singleton set and $\Grp\sC = \mathrm{Lie}\Grp$. 
+\end{example}
+\begin{example}
+    For $\sC = \mathrm{CAMani}^\infty$ the category of complex analytic smooth manifolds, the terminal object is again the singleton set and $\Grp\sC = \mathrm{CALie}\Grp$ the category of complex analytic Lie groups.
+\end{example}
+\begin{example}
+    For $\sC = \mathrm{Sm}_k$ the smooth $k$-varieties for an algebraically closed field $k$, $\Grp\sC$ is the algebraic groups over $k$.
+\end{example}
+\begin{example}
+    For $\sC = \mathrm{Sch}/S$ the category of $S$-schemes, the terminal object is $S$ and$\Grp\sC$ is the category of $S$-group schemes.
+\end{example}
+
+\begin{definition}
+    \label{definition_1_4}
+    For an algebraically closed field $k$, An affine algebraic $k$-group is a group object in the category of smooth (affine) $k$-varieties. 
+    \par An (affine) $S$-gropu scheme is a group object in the category of $\mathrm{Sch}/S$.
+\end{definition}
+
+\begin{definition}
+    \label{definition_1_5}
+    Let $\sC$ be a category that admits finite co-products. A co-group object in $\sC$ is a group object in $\sC^\op$.
+\end{definition}
+
+\begin{example}
+    Let $\R$ be a commutative unital ring and $\sC$ the category of $R$-algebras which admits finite co-product. Then a co-group object in $\sC$ is an $R$-Hopf algebra. Explicitly, for $A$ an $R$-algebra, we have
+    \begin{equation*}
+        \delta:A\to A\tens{R}A, \varepsilon:A\to R, \eta:A\to A
+    \end{equation*}
+    which are called comultiplication, counit, and coinversion (or antipodal), respectively.
+\end{example}
+\begin{remark}
+    Recall that we have an equivalence of categories,
+    \begin{equation*}
+        (R\mathrm{-Alg})^{\op}\stackrel{\Spec}{\to}\mathrm{AffSch}/R
+    \end{equation*}
+    inducing an equivalence between $R$-Hopf algebra and affine $R$-group schemes.
+\end{remark}
+
+\begin{remark}
+    Let $G$ be an affine $k$-variety and $\cO_G$ be its ring of functions. Let $f\in\cO_G,f:G\to k$, then 
+    \begin{equation*}
+        f\circ m: G\times G\to k\in\cO_{G\times G}\cong \cO_G\tens{k}\cO_G.
+    \end{equation*}
+\end{remark}
+
+\begin{example}
+    Let $R$ be a commutative unital ring, $\underline{\mathbb{G}_m}$ be the functor such that 
+    \begin{equation*}
+        R\mathrm{-Alg}\ni S\stackrel{\underline{\mathbb{G}_m}}{\mapsto}(S^\times,\cdot)\in\Grp
+    \end{equation*}
+    is the functor of points of the $R$-group schemes with Hopf-algebra,
+    \begin{equation*}
+        A\defeq R[x,x^{-1}].
+    \end{equation*}
+    Structure morphisms are given by 
+    \begin{equation*}
+        A\ni x\stackrel{\delta}{\mapsto}x\otimes x\in A\otimes A, A\ni x\stackrel{\varepsilon}{\mapsto} 1_R\in R, x\stackrel{\eta}{\mapsto}x^{-1}\in A.
+    \end{equation*}
+\end{example}
+\begin{example}
+    Let $R$ be a commutative unital ring, $\underline{\mathbb{G}_a}$ be the functor such that 
+    \begin{equation*}
+        R\mathrm{-Alg}\ni S\stackrel{\underline{\mathbb{G}_m}}{\mapsto}(S,+)\in\Grp
+    \end{equation*}
+    is the functor of points of the affine $R$-group schemes with Hopf-algebra,
+    \begin{equation*}
+        A\defeq R[x].
+    \end{equation*}
+    Structure morphisms are given by 
+    \begin{equation*}
+        A\ni x\stackrel{\delta}{\mapsto}x\otimes 1_A+1_A\otimes x\in A\otimes A, A\ni x\stackrel{\varepsilon}{\mapsto} 0_R\in R, x\stackrel{\eta}{\mapsto}-x\in A.
+    \end{equation*}
+\end{example}
+
+\begin{example}
+    Let $R$ be a commutative unital ring, $\underline{\mathrm{GL}_N}$ be the functor such that 
+    \begin{equation*}
+        R\mathrm{-Alg}\ni S\stackrel{\underline{\mathrm{GL}_N}}{\mapsto}\GL_N(S)\in\Grp
+    \end{equation*}
+    is the functor of points of the affine $R$-group schemes with Hopf algebra,
+    \begin{equation*}
+        A = R[x_{11},\cdots,x_{NN},\det(x_{ij})^{-1}].
+    \end{equation*}
+    The structure morphisms are,
+    \begin{align*}
+        \delta(x_{ij}) &= \left(\sum_{k=1}^N x_{ik}x_{kj}\right),\\
+        \varepsilon(x_{ij}) &= (\delta_{ij}),\\
+        \eta(x_{ij}) &= (\det(x_{ij}))^{-1}\mathrm{adj}(x_{ij}).
+    \end{align*}
+\end{example}
+
+\begin{example}
+    $\underline{\SL_N}$ is the functor sending 
+    \begin{equation*}
+        R\mathrm{-Alg}\ni S\stackrel{\underline{\SL_N}}{\mapsto}\SL_N(S)\in\Grp.
+    \end{equation*}
+    Its Hopf algebra is 
+    \begin{equation*}
+        A = R[x_{ij}]_{ij}/(\det(x_{ij})-1).
+    \end{equation*}
+\end{example}
+\begin{example}
+    $\underline{\mu_N}$ is the functor sending 
+    \begin{equation*}
+        R\mathrm{-Alg}\ni S\stackrel{\underline{\mu_N}}{\mapsto}\{x\in S^\times\sep x^N=1\}\in\Grp.
+    \end{equation*}
+    Its Hopf algebra is 
+    \begin{equation*}
+        A = R[x]/(x^N-1)
+    \end{equation*}
+    and the structure morphisms are the same as in $\underline{\mathbb{G}_m}$.
+\end{example}
+\begin{example}
+    $\underline{\alpha_p}$ for prime $p$ of the characteristic of $R$ is the functor sending 
+    \begin{equation*}
+        R\mathrm{-Alg}\ni S\stackrel{\underline{\alpha_N}}{\mapsto}\{x\in S^\times\sep x^p=0\}\in\Grp.
+    \end{equation*}
+    Its Hopf algebra is 
+    \begin{equation*}
+        A = R[x]/(x^p)
+    \end{equation*}
+    and the structure morphisms are the same as in $\underline{\mathbb{G}_a}$.
+\end{example}
+
+\end{document}
