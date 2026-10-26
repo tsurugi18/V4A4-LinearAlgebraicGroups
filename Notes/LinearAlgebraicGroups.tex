@@ -1,5 +1,5 @@
-\documentclass[8pt]{article}
-\linespread{0.5} 
+\documentclass[10pt]{article}
+\linespread{1} 
 \usepackage{extsizes}
 \usepackage{amsmath}
 \usepackage{amssymb}
@@ -14,6 +14,7 @@
 \usepackage{adjustbox} 
 \usepackage{ stmaryrd }
 \numberwithin{equation}{section}
+\theoremstyle{definition}
 \usetikzlibrary{arrows}
 \newcommand{\midarrow}{\tikz \draw[-triangle 90] (0,0) -- +(.1,0);}
 \tikzset{commutative diagrams/.cd,
@@ -104,7 +105,7 @@ mysymbol/.style={start anchor=center,end anchor=center,draw=none}
 \newcommand{\Z}[0]{\mathbb{Z}}
 \newcommand{\C}[0]{\mathbb{C}}
 \newcommand{\Q}[0]{\mathbb{Q}}
-\newcommand{\F}[0]{\mathcal{F}}
+\newcommand{\bF}[0]{\mathbb{F}}
 \newcommand{\U}[0]{\mathcal{U}}
 \newcommand{\B}[0]{\mathcal{B}}
 \newcommand{\G}[0]{\mathbb{G}}
@@ -172,101 +173,148 @@ mysymbol/.style={start anchor=center,end anchor=center,draw=none}
 
 %10/13
 \section{Introduction}
-The course concerns with algebraic groups. Primary examples are 
-\begin{example}
-    $\GL_2(k)$ for any field $k$.
-\end{example}
+% The course concerns with algebraic groups. Primary examples are 
+% \begin{example}
+%     $\GL_2(k)$ for any field $k$.
+% \end{example}
 
-\begin{remark}
-    ALmost all finite simple groups arise as $G(k)/Z_G(k)$ for $k$ a finite field and $G$ a simple simply connected algebraic group.
-\end{remark}
+% \begin{remark}
+%     ALmost all finite simple groups arise as $G(k)/Z_G(k)$ for $k$ a finite field and $G$ a simple simply connected algebraic group.
+% \end{remark}
 
-\subsection{Recollection}
+\subsection{Definitions and Examples}
 
 \begin{definition}
-    A bi-product $(A,p_1:A\to A_1,A\to A_2)$ in a category $\sC$ is an object which is universal in terms of any object $B$ together with morphisms $f_1:B\to A_1,f_2:B\to A_2$.
-    That is, we have a unique morphism $B\to A$. We denote such $A$ to be $A_1\times A_2$. 
-    \par We define a finite product for $n$-many object similarly. For $n=0$, such product is called the terminal object.
+    For two objects $A_1,A_2\in\sC$ in a category, a product $(A,p_1:A\to A_1,A\to A_2)$ is a triplet consists of an object and two morphisms in $\sC$ with the following universal property. 
+    For any object $B\in\sC$ together with morphisms $f_1:B\to A_1,f_2:B\to A_2$ in $\sC$, there is a unique morphism $B\to A$ making the following diagram commutes.
+    \begin{center}
+        \begin{tikzcd}
+    & B \arrow[ldd, "f_1"'] \arrow[rdd, "f_2"] \arrow[d, "\exists!", dashed] &     \\
+    & A \arrow[ld, "p_1"] \arrow[rd, "p_2"']                                 &     \\
+A_1 &                                                                        & A_2
+\end{tikzcd}
+    \end{center}
+    % is an object which is universal in terms of any object $B$ together with morphisms $f_1:B\to A_1,f_2:B\to A_2$.
+    % That is, we have a unique morphism $B\to A$. We denote such $A$ to be $A_1\times A_2$. 
+    By the universal property, such $A$ is unique up to isomorphisms. We denote such object as $A = A_1\times A_2$.
+    \par A product of $n$-many objects are defined recursively by the above construction. If $n=0$, the product $1_\sC$ is called a terminal object and any $A\in\sC$, there is a unique morphism $1_A:A\to 1_\sC$. %(i.e. any object in $\sC$ admits a unique morphism to it). Such unique morphism is denote %We define a finite product for $n$-many object similarly. For $n=0$, such product is called the terminal object.
 \end{definition}
 
-\begin{notation}
-As the terminal object $1_\sC$ admits a unique morphism into it from any object $A$, we denote such morphism as $1_A:A\to 1_\sC$.
-\end{notation}
+% \begin{notation}
+% As the terminal object $1_\sC$ admits a unique morphism into it from any object $A$, we denote such morphism as $1_A:A\to 1_\sC$.
+% \end{notation}
 
 \begin{remark}
     For $A\in\sC$, $A\times 1_\sC\to A$ given by the projection is an isomorphism with inverse $\id_A\times 1_A$.
 \end{remark}
 
 \begin{notation}
-    For $A\in\sC$, $\Delta:A\to A\times A$ is induced from $A\stackrel{\id_A}{\to} A$.
+    For $A\in\sC$, $\Delta:A\to A\times A$ is induced from $A\overset{\id_A}{\underset{\id_A}{\rightrightarrows}} A$.
 \end{notation}
 
 \begin{definition}
     \label{definition_1_1}
-    Let $\sC$ be a category admitting finite products. A group object in $\sC$ is a tuple $(G,m,i,e)$ such that 
+    Let $\sC$ be a category admitting finite products. A group object in $\sC$ is a quintuple $(G,m,i,e)$ consists of an object $G\in\sC$ and three morphisms
     \begin{equation*}
-        G\in\Ob(\sC), m:G\times G\to G, i:G\to G, e:1_\sC\to G,
+        m:G\times G\to G, i:G\to G, e:1_\sC\to G,
     \end{equation*}
-    satisfying the following properties.
+    satisfying the following axioms.
     \begin{enumerate}
         \item $m$ is associative. (i.e. $m\circ(m\times\id_G) = m\circ(\id_G\times m)$).
+        \begin{center}
+            \begin{tikzcd}
+G\times G\times G \arrow[r, "\id_G\times m"] \arrow[d, "m\times\id_G"'] & G\times G \arrow[d, "m"] \\
+G\times G \arrow[r, "m"']                                               & G                       
+\end{tikzcd}
+        \end{center}
         \item $e$ is a $2$-sided unit. (i.e. $m\circ(\id_G\times e) = \id_G = m\circ(e\times \id_G)$).
+        \begin{center}
+            \begin{tikzcd}
+G \arrow[r, "e\times\id_G"] \arrow[rd, "\id_G"] \arrow[d, "\id_G\times e"'] & G\times G \arrow[d, "m"] \\
+G\times G \arrow[r, "m"']                                                   & G                       
+\end{tikzcd}
+        \end{center}
         \item $i$ is a $2$-sided inverse. (i.e. $m\circ(i\times\id_G)\circ\Delta = e\circ 1_G = m\circ(\id_G\times i)\circ \Delta$).
+        \begin{center}
+            \begin{tikzcd}
+                                                                      & G\times G \arrow[rd, "\id_G\times i"]  &                           \\
+G \arrow[rd, "\Delta"'] \arrow[ru, "\Delta"] \arrow[r, "e\circ\id_G"] & G                                      & G\times G \arrow[l, "m"'] \\
+                                                                      & G\times G \arrow[ru, "i\times \id_G"'] &                          
+\end{tikzcd}
+        \end{center}
     \end{enumerate}
 \end{definition}
 
 \begin{definition}
     \label{definition_1_2}
-    A morphism of group objects is a morphism $f:G_1\to G_2$ such that 
+    A morphism of group objects is a morphism $f:G_1\to G_2$ satisfying 
     \begin{equation*}
         m_2\circ(f\times f)= f\circ m_1, i_2\circ f = f\circ i_1, e_2 = f\circ e_1.
     \end{equation*}
-    Objects of groups together with these morphism form a subcategory which we will denote by $\Grp\sC$.
+    The subclass of objects of groups together with these morphism forms a subcategory which we will denote by $\Grp\sC$.
 \end{definition}
 
 \begin{remark}
     \label{remark_1_3}
-    If $G$ is a gropu object in $\sC$, then for any $A\in\Ob(\sC)$, $\sC(A,G)$ inhertis a gropu structure as folows. 
+    For a group objects $G$ in $\sC$ and any object $A\in\Ob(\sC)$, $\sC(A,G)$ inhertis a group structure as folows. 
     \begin{enumerate}
         \item $e_A\defeq e\circ 1_A,A \to 1\to G$,
         \item $f_1\cdot f_2\defeq m\circ(f_1\times f_2)\circ\Delta_A$.
         \item $f^{-1}\defeq i\circ f$.
     \end{enumerate}
-    Furthermore, the assingment $A\mapsto \sC(A,G)$ is a contravariant functor $\sC\to \Grp$. Then $G\mapsto\sC(\cdot,G)$ is a contravariant functor $\Grp\sC\to \Func(\sC^\op,\Grp)$
+    Furthermore, the assingment $A\mapsto \sC(A,G)$ is a contravariant functor $\sC\to \Grp$ and $G\mapsto\sC(\cdot,G)$ is a contravariant functor $\Grp\sC\to \Func(\sC^\op,\Grp)$
     which is an embedding (i.e. fully-faithful) by Yoneda lemma.
     \par This is called the functor of points, we always have the abstract test group $G(1)$. In general, we will denote $G(A) \defeq \sC(A,G)$ for arbitrary $A\in\Ob(\sC)$.
 \end{remark}
 
-\begin{example}
-    In $\sC = \mathrm{Sets}$, the terminal object is the singleton set and $\Grp\sC = \Grp$. $G(1)$ contains all the information about it.
+\begin{example}$\:$
+    \begin{center}
+\begin{tabular}{c|c|c}
+Category $\mathscr{C}$ & $\mathrm{Grp}\mathscr{C}$ & Terminal Object \\ \hline
+$\mathrm{Sets}$        & $\Grp$                    & $\{\ast\}$      \\ \hline
+$\mathrm{Top}$         & $\mathrm{TopGrp}$         & $\{\ast\}$      \\ \hline
+$\mathrm{Man}^\infty$  & $\mathrm{LieGrp}$         & $\{\ast\}$      \\ \hline
+$\mathrm{ComplexMfd}$  & $\mathrm{ComplexLieGrp}$  & $\{\ast\}$      \\ \hline
+$\mathrm{SmVar}_k$     & $\mathrm{AlgGrp}_k$       & $\Spec(k)$      \\ \hline
+$\mathrm{SmVar}_S$     & $\mathrm{AlgGrp}_S$       & $S$            
+\end{tabular}
+    \end{center}
 \end{example}
-\begin{example}
-    For $\sC = \mathrm{Top}$, the terminal object is again the singleton set and $\Grp\sC = \mathrm{Top}\Grp$. 
-\end{example}
-\begin{example}
-    For $\sC = \mathrm{Mani}^\infty$ the category of smooth manifolds, the terminal object is again the singleton set and $\Grp\sC = \mathrm{Lie}\Grp$. 
-\end{example}
-\begin{example}
-    For $\sC = \mathrm{CAMani}^\infty$ the category of complex analytic smooth manifolds, the terminal object is again the singleton set and $\Grp\sC = \mathrm{CALie}\Grp$ the category of complex analytic Lie groups.
-\end{example}
-\begin{example}
-    For $\sC = \mathrm{Sm}_k$ the smooth $k$-varieties for an algebraically closed field $k$, $\Grp\sC$ is the algebraic groups over $k$.
-\end{example}
-\begin{example}
-    For $\sC = \mathrm{Sch}/S$ the category of $S$-schemes, the terminal object is $S$ and$\Grp\sC$ is the category of $S$-group schemes.
-\end{example}
+
+\begin{remark}
+    For $\mathrm{Sets}$ and $G\in\Grp\mathrm{Sets}$, $G(\{\ast\})$ contains all the information about it. That is $G(\{\ast\}) = \Hom(\{\ast\},G)\cong G$.
+\end{remark}
+
+% \begin{example}
+%     In $\sC = \mathrm{Sets}$, the terminal object is the singleton set and $\Grp\sC = \Grp$. $G(1)$ contains all the information about it.
+% \end{example}
+% \begin{example}
+%     For $\sC = \mathrm{Top}$, the terminal object is again the singleton set and $\Grp\sC = \mathrm{Top}\Grp$. 
+% \end{example}
+% \begin{example}
+%     For $\sC = \mathrm{Mani}^\infty$ the category of smooth manifolds, the terminal object is again the singleton set and $\Grp\sC = \mathrm{Lie}\Grp$. 
+% \end{example}
+% \begin{example}
+%     For $\sC = \mathrm{CAMani}^\infty$ the category of complex analytic smooth manifolds, the terminal object is again the singleton set and $\Grp\sC = \mathrm{CALie}\Grp$ the category of complex analytic Lie groups.
+% \end{example}
+% \begin{example}
+%     For $\sC = \mathrm{Sm}_k$ the smooth $k$-varieties for an algebraically closed field $k$, $\Grp\sC$ is the algebraic groups over $k$.
+% \end{example}
+% \begin{example}
+%     For $\sC = \mathrm{Sch}/S$ the category of $S$-schemes, the terminal object is $S$ and$\Grp\sC$ is the category of $S$-group schemes.
+% \end{example}
 
 \begin{definition}
     \label{definition_1_4}
-    For an algebraically closed field $k$, An affine algebraic $k$-group is a group object in the category of smooth (affine) $k$-varieties. 
-    \par An (affine) $S$-gropu scheme is a group object in the category of $\mathrm{Sch}/S$.
+    For an algebraically closed field $k$, an affine algebraic $k$-group is a group object in the category of smooth (affine) $k$-varieties. 
+    \par An (affine) $S$-group scheme is a group object in the category of $\mathrm{Sch}/S$.
 \end{definition}
 
 \begin{definition}
     \label{definition_1_5}
     Let $\sC$ be a category that admits finite co-products. A co-group object in $\sC$ is a group object in $\sC^\op$.
 \end{definition}
-
+%current Current
 \begin{example}
     Let $\R$ be a commutative unital ring and $\sC$ the category of $R$-algebras which admits finite co-product. Then a co-group object in $\sC$ is an $R$-Hopf algebra. Explicitly, for $A$ an $R$-algebra, we have
     \begin{equation*}
@@ -367,5 +415,392 @@ As the terminal object $1_\sC$ admits a unique morphism into it from any object 
     \end{equation*}
     and the structure morphisms are the same as in $\underline{\mathbb{G}_a}$.
 \end{example}
+%OCT 15
+\subsection{Basic Geometric Properties of Group Schemes}
+\begin{definition}
+    A scheme is separated if the diagonal map $\Delta:X\to X\times X$ is a closed immersion.
+\end{definition}
+\begin{remark}
+    A topological space is Hausdorff if and only if $\Delta:X\to X\times X$ is closed. 
+\end{remark}
+\begin{lemma}
+    \label{lemma_12}
+    An $S$-group scheme $G$ is separated if and only if $e:S\to G$ is a closed immertion. This is automatic if $S = \Spec(k)$ or $G$ is affine.
+\end{lemma}
+\begin{proof}$\:$
+    \begin{center}
+        % https://tikzcd.yichuanshen.de/#N4Igdg9gJgpgziAXAbVABwnAlgFyxMJZABgBpiBdUkANwEMAbAVxiRAHEQBfU9TXfIRRkAjFVqMWbdgB0ZAMywAjYAGUunHn2x4CREeXH1mrRCFXdeIDDsH7SY6salnNVmwL0oATIaeTTc0ttTyFkAGY-CRNpYOt+XTDfR2iXDjiPRKJIlOdA2QVlNQ1ucRgoAHN4IlB5ACcIAFskXxAcCCRI1MDWLRB6pqQyNo7Ebz6B5sRh9qQDbrY5ABEYBhw6EGoGOiVVgAUEuzM6rAqACxw4ybnqWcQu7d2GA9svEBPzy-8Ys0a5AGMsHV-gAKORYKAAfXYpCwAEorg0pgAWW6jACs3zSvSs10QqJGSAAbFiepsQI99oc3h8LojBohMYTEAB2UmLGQrNYbCZI4lopBshZmMEyCHQuR4RrwAAEMDhAKB-xlImh5Mpz2pQnepzpXAoXCAA
+\begin{tikzcd}
+G \arrow[r] \arrow[d, "\Delta"']          & S \arrow[d, "e"] & S \arrow[r, "e"] \arrow[d, "e"']         & G \arrow[d, "\Delta"] \\
+G\fib{S}G \arrow[r, "{m\circ(\id_G,i)}"'] & G                & G \arrow[r, "(\id_G\times (e\circ 1_G))"'] & G\fib{S}G            
+\end{tikzcd}
+    \end{center}
+    Since closed immersion is stable under base change, the equivalence is done.
+\end{proof}
+\begin{remark}
+    A topological gropu$G$ is Hausdorff if and only if $e\in G$ is a closed point (i.e. $\{e\}$ is closed).
+\end{remark}
+Recall that $X$ scheme is connected or irreducible if $\ab{X}$ has that property, where $\ab{X}$ is the underlying space. In general, irreducibility implies the connectedness. 
+\begin{lemma}
+    \label{lemma_13}
+    For a $S$-group scheme, a connected component is an irreducible component. In particular, these two notions are equivalent.
+\end{lemma}
+\begin{proof}
+    Since an irreducible component is not fully contained in the union of two others, there is a point contained only on an irreducible component.
+    By translation every point lies in a unique irreducible component, thus the irreducible components are disjoint.
+\end{proof}
+\begin{remark}
+    If $G$ is smooth affine, irreducibility, connectedness and $\cO_G$ being an integral domain are all equivalent.
+\end{remark}
+\par\textbf{Identity component}
+Let $X$ be a scheme and $Z\subseteq\ab{X}$ be a closed subset, let $Z\hookrightarrow X$ be a canonical inclusion as topological spaces. Then $(Z,i^*\cO_X)$ is a locally ringed space but may not be a scheme.
+To make this a scheme we need $(Z,i^*(\cO_X/\mathcal{I}_Z))$ where 
+\begin{equation*}
+    \mathcal{I}_Z(U) = \{f\in\cO_X(U)\sep \forall x\in U\cap Z, f(x) = 0 \text{ in $\cO_{X,x}/\m_x$}\}.
+\end{equation*}
+This is called the reduced scheme structure on $Z$, however, if $Z$ is generalizing (closed under generalization) then $(Z,i^*\cO_X)$ is a scheme.
 
+\begin{lemma}
+    \label{lemma_14}
+    A connected component is generalizing.
+\end{lemma}
+\begin{proof}
+    Since $Z$ and $\overline{\{y\}}$ are both connected and meet at $x$, $Z\cup\overline{\{y\}}$ is also connected hence $Z = Z\cup\overline{\{y\}}$ thus $y\in Z$.
+\end{proof}
+\begin{definition}
+    \label{definition_15}
+    For a $k$-group scheme $G$, the identity component $G^0$ is defined as the scheme $(\ab{G}^0,\cO_G|_{\ab{G}^0})$ which is a group scheme.
+\end{definition}
+Recall if $(R,\m)$ is a local ring, then the dimension of $R$ is the maximal chain of prime ideals which is called the Krull-dimension. Also $\m/\m^2$ is a $k$-vector space where $k=R/\m$, hence we can consider the dimension of $\m/\m^2$ as a $k$-vectorspace. $R$ is said to be regular if these two dimensions coincide.
+\begin{definition}
+    A scheme $X$ is regular if all local rings $\cO_{X,x}$ are regular.
+\end{definition}
+\begin{definition}
+    A $k$-scheme $X$ of finite type is smooth if $X\fib{k}\overline{k}$ is regular.
+\end{definition}
+\begin{definition}
+    For $S$-scheme $X$, geometric fibers are the base change $X_{\overline{S}}$
+    \begin{center}
+        \begin{tikzcd}
+X_{\overline{S}} \arrow[d] \arrow[r] & X \arrow[d] \\
+\Spec(k) \arrow[r]                   & S          
+\end{tikzcd}
+    \end{center}
+    where $k$ is algebraically closed.
+\end{definition}
+\begin{definition}
+    A $S$-scheme $X$ is smooth if it is flat, locally finite presentation and its geometric fibers are regular. 
+\end{definition}
+\begin{lemma}
+    \label{lemma_16}
+    For the notion of smoothness for group scheme, the geometric fibers being regular can be replaced by the following criteria. Every point $\overline{e}$ of a geometric base change $X_{\overline{S}}$ over $e$, $X_{\overline{S}}$ is regular at $\overline{e}$.
+\end{lemma}
+\begin{proof}
+    Clearly if $G$ is smooth, the above condition is met. Conversely, for any $g\in G(k)$, where $k$ is algebraically closed, we have
+    \begin{equation*}
+        L_g:G\fib{S}\Spec(k)\stackrel{\sim}{\to} G\fib{S}\Spec(k).
+    \end{equation*}
+    Therefore, $\cO_{G,g}$ is regular. The smooth locus $U\subseteq G$ is open, non-empty. Take $V= G\backslash U$. If $V$ is not empty then some affine open has a $k$-point for some algebraically closed field $k$ by Nullstellensatz hence a contradiction.
+\end{proof}
+\begin{definition}
+    A scheme $X$ is reduced if all its stalks are reduced as rings. Equivalently all affine opens are spectrum of reduced rings.
+\end{definition}
+\begin{remark}
+    Even though $X$ is reduced, for a morphism of schemes $X\to Y$, the fibers might not be reduced. The following is a counter example,
+    \begin{equation*}
+        (\Z[x]/(x^p-1))\otimes \bF_p.
+    \end{equation*}
+\end{remark}
+\begin{remark}
+    $X/k$ is reduced but $X\fib{k}\overline{k}$ needs not be reduced. We can construct a counter example as follows.
+    \begin{equation*}
+        k = \bF_p(s), R = k[t]/(t^p-s)
+    \end{equation*}
+    is reduced however,
+    \begin{equation*}
+        R\tens{k}k(\sqrt[p]{s})
+    \end{equation*}
+    is not.
+\end{remark}
+For a scheme $X$ over $k$, geometrically reduced implies reduced. If $k$ is perfect then these two notions coincide.
+\begin{lemma}
+    \label{lemma_17}
+    A $k$-group scheme of locally finite type is smooth if and only if it is geometrically reduced.
+\end{lemma}
+\begin{proof}
+    By the definition of smoothness, we assume $k$ to be algebraically closed without loss of generality.
+    Recall that regular local ring is reduced. Conversely, a smooth scheme $X$ is reduced which is locally of finite type, then it has non-empty smooth locus which is open and dense.
+    If $X=G$ a group scheme then using translation, all points are smooth.
+\end{proof}
+\begin{proposition}
+    \label{proposition_18}
+    For a $k$-group scheme $G$ locally of finite type where $k$ is algebraically closed, $G$ satisfies the following properties.
+    \begin{enumerate}[1. ]
+        \item $G$ is equidimensional and $\dim(G) \leq \dim T_e(G)$.
+        \item The following statements are equivalent for $G$
+        \begin{enumerate}[i. ]
+            \item $G$ is smooth.
+            \item $G^0$ is smooth.
+            \item $\cO_{G,e}$ is regular.
+            \item $\dim(G) = \dim T_e(G)$.
+            \item $G$ is reduced.
+            \item For any $k$-algebra $R$ and $I\subseteq R$ an ideal such that $I^2 = 0$, $G(R)\twoheadrightarrow G(R/I)$.
+        \end{enumerate}
+    \end{enumerate}
+\end{proposition}
+\begin{proof}
+    $G$ is equi-dimensional by translation. By Nakayama's lemma $\dim T_e(G)\geq \dim(\cO_{G,e})$. 
+    \par For i $\iff$ ii $\iff$ iii are due to translation. iii $\iff$ iv is by definition. i$\iff$ v is by Lemma \ref{lemma_14}. i$\iff$vi by lifting criterion.
+\end{proof}
+Let $R$ be a finite $k$-algebra and $X=\Spec(R)$ where $k$ is algebraically closed. Since $x\in X_{\mathrm{cl}}$ corersponds to a maximal ideal in $R$, the composition,
+\begin{equation*}
+    k\to R\to R/\m_x
+\end{equation*}
+is an isomorphism. We write $f(x) = \ev_x(f)\in k$. 
+
+\begin{definition}
+    A derivation $d:R\to k$ is a $k$-linear map satisfying Leibniz rule. 
+\end{definition}
+In the above setting, we have 
+\begin{equation*}
+    T_xX = \mathrm{Der}_k(R,k)
+\end{equation*}
+and restriction to $\m_x$ gives an isomorphism of $\mathrm{Der}_k(R,k)$ and $\Hom_k(\m_x/\m_x^2,k)$.
+\par A vector field is $d:x\mapsto d_x$ such tha for each $f\in R$, $d(f)\in R$. We have a morphism,
+\begin{equation*}
+    \mathrm{Der}_k(R,R)\stackrel{d\mapsto \ev_x\circ d}{\to}\mathrm{Der}_k(R,k).
+\end{equation*}
+\begin{proposition}[Cartier]
+    Let $k$ be a field of characteristic $0$. Any (affine) k-group scheme of finite type is automatically smooth.
+\end{proposition}
+\begin{proof}
+    As usual, we assume $k$ is algebraically closed. Let $I\subseteq\cO_G$ be nilradical, then $I\subseteq\m_{G,e}\subseteq\cO_G$.
+    \begin{claim}
+    $I\subseteq\m_{G,e}^2$
+    \end{claim}
+    \begin{claimproof}
+        Let $d_e\in T_eG=\mathrm{Der}_k(\cO_G,k)=\Hom_k(\m_{G,e}/\m_{G,e},k)$. Hence enough to show that $d_e(I) = 0$. Take $d\in\mathrm{Der}_k(\cO_{G,e},\cO_{G,e})$ that lifts $d_e$, using Leibniz rule we see $d_e(I)=0$. Indeed for $f\in I$, if $N$ is the smallest natural number such that $f^N = 0$, then 
+        \begin{equation*}
+            d_e(f^N) = Nf^{N-1}d(f),
+        \end{equation*}
+        Note that $N$ is not $0$ as $k$ is of characteristic $0$ and $f^{N-1}$ is not $0$. Hence $d(f)$ is not a unit. Hence $d(f)\in\m_{G,e}$. Recall we have $d_e(f) = \ev_e(d(f))=0$. 
+    \end{claimproof}
+    Let $H=G_{\mathrm{red}}$ which is a reduced $k$-group scheme hence smooth by Lemma % cite the right lemma
+    We have $\cO_H=\cO_G/I$, hence $\m_{H,e} = \m_{G,e}/I$. With the claim we have $\m_{H,e}^2 = \m_{G,e}^2/I$. Therefore $\m_{H,e}/\m_{H,e}^2\cong \m_{G,e}/\m_{G,e}^2$. Now $\dim G\leq \dim T_e(G)=\dim T_e(H) = \dim(H)=\dim G$ by Proposition \ref{proposition_18}. Hence $\dim G = \dim T_e(G)$ hence $G$ is smooth.
+\end{proof}
+
+%10/20
+
+\subsection{Kernels and Exact Sequences}
+
+\begin{definition}
+    \label{definition_21}
+    The kernel of a homomorphism of algebraic group schemes $\varphi:G\to H$ is the fiber product 
+    \begin{center}
+        \begin{tikzcd}
+\ker\varphi\defeq G\fib{H}\{\ast\} \arrow[d] \arrow[r] & \{\ast\} \arrow[d] \\
+G \arrow[r, "\varphi"']                               & H                 
+\end{tikzcd}
+    \end{center}
+\end{definition}
+
+\begin{remark}
+    Obviously $\ker\varphi(R)=\ker(\varphi(R):G(R)\to H(R))\trianglelefteq G(R)$ and hence $\ker\varphi\trianglelefteq G$.
+\end{remark}
+
+\begin{remark}
+    If $G,H$ are both affine then so is $\ker\varphi$ with the underlying Hopf algebra 
+    \begin{equation*}
+        \cO_{\ker\varphi} = \cO(G)\tens{\cO(H)}k\cong \cO(G)/I_H\cO(G),
+    \end{equation*}
+    where $I_H \defeq \ker(\cO(H)\to k)$ which is called the augumentation ideal, (i.e., the kernel of morphism $\cO(H)\ni f\mapsto f(e)\in k$).
+\end{remark}
+
+\begin{example}
+    $\mu_n = \ker(\G_m\stackrel{(\cdot)^n}{\to}\G_m)$ and $\alpha_p = \ker(\G_A\stackrel{(\cdot)^p}{\to}\G_A)$ where the latter group scheme is over a field of characteristic $p$.
+\end{example}
+
+\begin{definition}
+    A morphism of schemes is faithfully-flat if it is flat and surjective as a morphism between underlying topological spaces.
+\end{definition}
+
+\begin{definition}
+    \label{definition_23}
+    The sequence 
+    \begin{equation*}
+        e\to N\stackrel{i}{\to}G\stackrel{q}{\to}Q
+    \end{equation*}
+    is exact if $i$ induces an isomorphism between $N$ and $\ker q$.
+    \par The sequence 
+    \begin{equation*}
+        e\to N\stackrel{i}{\to}G\stackrel{q}{\to}Q\to e
+    \end{equation*}
+    is exact if in addition $q$ is faithfully-flat.
+\end{definition}
+
+\begin{proposition}
+    \label{proposition_24}
+    Given an exacr sequence,
+    \begin{equation*}
+        e\to N\to G\to Q\to e,
+    \end{equation*}
+    \begin{enumerate}
+        \item  $N,Q$ are smooth $\Rightarrow$ $G$ is smooth.
+        \item $G$ is smooth $\Rightarrow$ $Q$ is smooth.
+    \end{enumerate}
+\end{proposition}
+
+
+\begin{proof}
+    \par\textbf{1.} If $q$ is flat and fibers of $q$ are the translates of $N$ hence smooth. Note that $q$ is smooth if $N$ is smooth and hence $G$ is smooth as $Q$ is.
+    \par\textbf{2.} If $q$ is faithfully flat then $\cO_Q\hookrightarrow q_*\cO_G$ is injective. As $G$ is smooth, it is geometrically reduced, so is $\cO_Q$ hence $Q$ is smooth.
+\end{proof}
+
+\begin{example}
+    An example of $G$ being smooth but $N$ fails to be is $\G_m$ and $\mu_p$ where the involving field is of characteristic $p$.
+\end{example}
+\begin{proposition}
+    \label{proposition_25}
+    Let $\varphi:G\to H$ be a surjective morphism of group varieties. The following statements about $\varphi$ are equivalent.
+    \begin{enumerate}[1. ]
+        \item $d_e\varphi:T_eG\to T_eH$ is surjective.
+        \item $\ker\varphi$ is smooth.
+        \item $\varphi$ is smooth.
+    \end{enumerate}
+\end{proposition}
+\begin{proof}
+    WIthout loss of generality, we assume $k$ is algebraically closd. Write $N=\ker \varphi$. Recall the equality agian that the fibers of $\varphi$ are the translates of $N$ hence all dimensions of fibers are equal to $\dim(N)$. In particular, we obtain,
+    \begin{equation*}
+        \dim(G) = \dim(H)+\dim(N).
+    \end{equation*}
+    Recall by Proposition \ref{proposition_18}
+    \begin{equation*}
+        \dim T_eG \geq \dim G.
+    \end{equation*}
+    The equality holds if and only if $G$ is smooth. Consider 
+    \begin{center}
+        \begin{tikzcd}
+0 \arrow[r] & T_eN \arrow[d] \arrow[r]              & T_eG \arrow[d] \arrow[r, "d_e\varphi"] & T_eH \arrow[d]              \\
+0 \arrow[r] & N(k(\varepsilon)) \arrow[d] \arrow[r] & G(k(\varepsilon)) \arrow[d] \arrow[r]  & H(k(\varepsilon)) \arrow[d] \\
+0 \arrow[r] & N(k) \arrow[r]                        & G(k) \arrow[r]                         & H(k)                       
+\end{tikzcd}
+    \end{center} 
+    We have $\dim T_eG \leq \dim T_eN+\dim T_eH$ and the equality holds if and only if $\varphi$ is surjective. Using once again Proposition \ref{proposition_18}, we see 
+    \begin{equation*}
+        \dim G\leq \dim T_eN+\dim H,
+    \end{equation*}
+    hence \textbf{i}$\iff$\textbf{ii}. 
+    \par \textbf{ii}$\iff$\textbf{iii}. $\varphi$ smooth means fibers are smooth hence $\Leftarrow$. Conversely, $d_e\varphi$ being surjective means that $d_g\varphi$ is surjective for all $g\in G(k)$ by the homogeneity, and as $G,H$ are smooth so is $\varphi$.
+\end{proof}
+
+\subsection{Group Actions}
+\begin{definition}
+    \label{definition_26}
+    An action of a $k$-group scheme $G$ on a $k$-scheme $X$ is a regular map $\mu:G\times X\to X$ that the following diagrams are commutative.
+    \begin{center}
+        \begin{tikzcd}
+G\times G\times X \arrow[d, "m\times\id_X"'] \arrow[r, "\id_G\times \mu"] & G\times X \arrow[d, "\mu"] & \{\ast\}\times X \arrow[r, "e\times\id_X"] \arrow[rd, "\cong"'] & G\times X \arrow[d, "\mu"] \\
+G\times X \arrow[r, "\mu"']                                               & X                          &                                                                 & X                         
+\end{tikzcd}
+    \end{center}
+    We will write $g\cdot x, gx, g\times x$ for $\mu(g,x)$. Giving group scheme actions is equivalent to giving actions $G(R)\circlearrowright X(R)$.
+\end{definition}
+\begin{lemma}
+    \label{lemma_27}
+    Consider $G\stackrel{\mu}{\circlearrowright}X$ which is faithfully flat. Then we have the following statements about $\mu$.
+    \begin{enumerate}
+        \item $G$ is smooth then $\mu$ is smooth.
+        \item $G$ is finite then $\mu$ is finite.
+    \end{enumerate}
+\end{lemma}
+\begin{proof}
+    If $(g,x)\mapsto (g,g\cdot x)$ is an isomorphism then by the diagram 
+    \begin{center}
+        \begin{tikzcd}
+G\times X \arrow[d, "\mu"'] \arrow[r, "{(g,x)\mapsto (g,g\cdot x)}"] & G\times X \arrow[d, "p_X"] \\
+X \arrow[r, "\id_X"']                                                & X                         
+\end{tikzcd}
+    \end{center}
+    any properties of $\mu$ hold for $p_2$ and therefore for $G$ as well.
+\end{proof}
+\begin{definition}
+    A morphism of $k$-schemes is $G$-equivariant if it commutes with $G$-actions.
+\end{definition}
+\begin{proposition}
+    \label{proposition_28}
+    $X\stackrel{f}{\to}Y$ be $G$-equivariant between non-empty $k$-schemes.
+    \begin{enumerate}
+        \item $Y$ is reduced and $G(\overline{k})\circlearrowright Y(\overline{k})$ is transitive then $f$ is faithfully flat.
+        \item If $G(\overline{k})\circlearrowright X(\overline{k})$ is transitive then $f(\ab{X})\subseteq\ab{Y}$ locally closed and hence $f(X)_{\mathrm{red}}\defeq f(\ab{X})$ with its reduced scheme structure.
+        \item If $G(\overline{k})\circlearrowright X(\overline{k})$ is transitive and $X$ is reduced then $f$ factors as 
+        \begin{equation*}
+            X\stackrel{\text{faithfully flat}}{\to}f(X)_{\mathrm{red}}\hookrightarrow Y,
+        \end{equation*}
+        and $f(X)_{\mathrm{red}}$ is $G$-stable.
+    \end{enumerate}
+\end{proposition}
+\begin{proof}
+    See \cite{Milne}.
+\end{proof}
+
+\begin{definition}
+    \label{definition_29}
+    Let $G$ be a group scheme and $X$ be a scheme where $G$ acts on. For $x\in X(k)$, we have the orbit map is 
+    \begin{equation*}
+        G\ni g\stackrel{\mu_x}{\mapsto} gx\in X.
+    \end{equation*}
+    $\mu_x$ is the restriction of $\mu$ to $G\times\{x\}$. If $G(\overline{k})$ acts transitively on $X(\overline{k})$ then $\mu_x$ is surjective.
+    \par The orbit $G\cdot x$ is the image of $\ab{\mu_x}$. 
+\end{definition}
+
+\begin{remark}
+    Due to Proposition \ref{proposition_28}.2, $\ab{\mu_x}$ is locally closed together with considering the trivial action of $G$ on itself.
+\end{remark}
+
+\begin{example}
+    \label{example_30}
+    \begin{equation*}
+        \SL_2\times\A \ni\begin{pmatrix}
+            a & b \\ c & d 
+        \end{pmatrix}
+        \begin{pmatrix}
+            x \\ y 
+        \end{pmatrix}
+        = \begin{pmatrix}
+            ax + by \\ cx+dy
+        \end{pmatrix}
+    \end{equation*}
+    Then we have two orbits,
+    \begin{equation*}
+        \{0\},\left\{\begin{pmatrix}
+            x \\ y
+        \end{pmatrix}\not=0\right\}.
+    \end{equation*}
+    The first one is clearly closed however, the latter has the closure the whole hence not closed even it is locally closed.
+\end{example}
+\begin{proposition}
+    \label{proposition_31}
+    Let $G$ be a $k$-group variety acting on $k$-variety $X$ where $k$ is algebraically closed. Then every orbit of minimal dimension is closed. In particular, there will always be a closed orbit.
+\end{proposition}
+\begin{proof}
+    Let $O\defeq G\cdot x$ be an orbit. Then there is $U\subseteq \overline{O}$ a dense open subset contained in $O$ by Chevalley's theorem. Observe that 
+    \begin{equation*}
+        O = \bigcup_{g\in G(k)}gU \subseteq \overline{O},
+    \end{equation*}
+    hence open. Therefore $\overline{O}\backslash O$ is closed and is of dimension less than $\dim O$. If $O$ is closed then there is nothing to show.
+    Otherwise $\overline{O}\backslash O\not=\emptyset$ is a union of orbit of dimension less than $\dim O$ hence $O$ is closed if it is of minimal dimension.
+\end{proof}
+
+\begin{theorem}[Homomorphism Theorem]
+    \label{theorem_32}
+    Let $G\stackrel{\varphi}{\to}H$ be a homomorphism of group schemes. if $G$ is smooth then $\varphi$ factors as,
+    \begin{equation*}
+        G\stackrel{\text{faithfully flat}}{\to} I\stackrel{\text{closed immersion}}{\to}H.
+    \end{equation*}
+\end{theorem}
+
+\begin{thebibliography}{9}
+\bibitem{Borel} Linear algebraic groups.
+\bibitem{Milne} Linear algebraic groups.
+\end{thebibliography}
 \end{document}

@@ -1,0 +1,295 @@
+\documentclass[10pt]{article}
+\linespread{1} 
+\usepackage{extsizes}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{ mathrsfs }
+\usepackage{ mathtools}
+\usepackage{enumerate}
+\usepackage{bbm}
+\usepackage{lipsum}
+\usepackage{fancyhdr}
+\usepackage{tikz-cd} 
+\usepackage{adjustbox} 
+\usepackage{ stmaryrd }
+\numberwithin{equation}{section}
+\theoremstyle{definition}
+\usetikzlibrary{arrows}
+\newcommand{\midarrow}{\tikz \draw[-triangle 90] (0,0) -- +(.1,0);}
+\tikzset{commutative diagrams/.cd,
+mysymbol/.style={start anchor=center,end anchor=center,draw=none}
+}
+\newcommand\comsymb[2][\circlearrowleft]{%
+  \arrow[mysymbol]{#2}[description]{#1}}
+
+\newtheorem{theorem}{Theorem} [section] 
+\newtheorem{proposition}{Proposition}[section] 
+\newtheorem{definition}{Definition}[section] 
+\newtheorem{lemma}{Lemma}[section] 
+\newtheorem{notation}{Notation}[section] 
+\newtheorem{remark}{Remark}[section] 
+\newtheorem{corollary}{Corollary} [section] 
+\newtheorem{terminology}{Terminology}[section] 
+\newtheorem{fact}{Fact}[section] 
+\newtheorem{example}{Example}[section] 
+\newtheorem{claim}{Claim}
+\newenvironment{claimproof}[1]{\par\noindent\underline{Proof:}\space#1}{\hfill $\blacksquare$}
+
+\DeclareMathOperator{\tmod}{mod}
+\DeclareMathOperator{\triv}{triv}
+\DeclareMathOperator{\ind}{ind}
+\DeclareMathOperator{\straw}{s.t.}
+\DeclareMathOperator{\ev}{ev}
+\DeclareMathOperator{\pr}{pr}
+\DeclareMathOperator{\Aut}{Aut}
+\DeclareMathOperator{\Map}{Map}
+\DeclareMathOperator{\Stab}{Stab}
+\DeclareMathOperator{\Ind}{Ind}
+\DeclareMathOperator{\GL}{GL}
+\DeclareMathOperator{\SL}{SL}
+\DeclareMathOperator{\SO}{SO}
+\DeclareMathOperator{\Sp}{Sp}
+\DeclareMathOperator{\esssup}{esssup}
+\DeclareMathOperator{\abs}{abs}
+\DeclareMathOperator{\rel}{rel}
+\DeclareMathOperator{\diam}{diam}
+\DeclareMathOperator{\rank}{rank}
+\DeclareMathOperator{\Hom}{Hom}
+\DeclareMathOperator{\Homk}{Hom_{k-alg}}
+\DeclareMathOperator{\Ker}{Ker}
+\DeclareMathOperator{\Image}{Im}
+\DeclareMathOperator{\Dom}{Dom}
+\DeclareMathOperator{\grad}{grad}
+\DeclareMathOperator{\divergence}{div}
+\DeclareMathOperator{\rk}{rk}
+\DeclareMathOperator{\Span}{Span}
+\DeclareMathOperator{\mSpec}{mSpec}
+\DeclareMathOperator{\MaxSpec}{MaxSpec}
+\DeclareMathOperator{\interior}{int}
+\DeclareMathOperator{\supp}{supp}
+\DeclareMathOperator{\id}{id}
+\DeclareMathOperator{\sgn}{sgn}
+\DeclareMathOperator{\Mat}{Mat}
+\DeclareMathOperator{\PD}{PD}
+\DeclareMathOperator{\ext}{ext}
+\DeclareMathOperator{\vol}{vol}
+\DeclareMathOperator{\inte}{int}
+\DeclareMathOperator{\diverg}{div}
+\DeclareMathOperator{\curl}{curl}
+\DeclareMathOperator{\image}{im}
+\DeclareMathOperator{\dR}{dR}
+\DeclareMathOperator{\Ob}{Ob}
+\DeclareMathOperator{\Mnfd}{Mnfd}
+\DeclareMathOperator{\OpEmb}{OpEmb}
+\DeclareMathOperator{\Spec}{Spec}
+\DeclareMathOperator{\Spa}{Spa}
+\DeclareMathOperator{\Lim}{Lim}
+\DeclareMathOperator{\Alg}{\mathcal{A}}
+\DeclareMathOperator{\glim}{glim}
+\DeclareMathOperator{\con}{con}
+\DeclareMathOperator{\Spv}{Spv}
+\DeclareMathOperator{\clet}{c}
+\DeclareMathOperator{\tat}{at}
+\DeclareMathOperator{\Sheaf}{Sheaf}
+\DeclareMathOperator{\Cont}{Cont}
+%\newcommand*{\name}[\num_arguments][default values]{{\color{#1}\Large #2}}
+\newcommand{\defeq}{\vcentcolon=}
+\newcommand{\Ouv}{\mathscr{O}}
+\newcommand{\norm}[1]{\Vert #1 \Vert}
+\newcommand{\opNorm}[2]{\norm{#1}_{#2\to#2}}
+\newcommand{\normL}[3]{\norm{#1}_{L^{#2}(#3)}}
+\newcommand{\N}[0]{\mathbb{N}}
+\newcommand{\m}[0]{\mathfrak{m}}
+\newcommand{\R}[0]{\mathbb{R}}
+\newcommand{\Z}[0]{\mathbb{Z}}
+\newcommand{\C}[0]{\mathbb{C}}
+\newcommand{\Q}[0]{\mathbb{Q}}
+\newcommand{\bF}[0]{\mathbb{F}}
+\newcommand{\U}[0]{\mathcal{U}}
+\newcommand{\B}[0]{\mathcal{B}}
+\newcommand{\G}[0]{\mathbb{G}}
+\newcommand{\A}[0]{\mathbb{A}}
+\newcommand{\T}[0]{\mathbb{T}}
+\newcommand{\K}[0]{\mathcal{K}}
+\newcommand{\Para}[0]{\mathbb{P}}
+\newcommand{\M}[0]{\mathcal{M}}
+\newcommand{\maniN}[0]{\mathcal{N}}
+\newcommand{\cinf}[0]{\mathcal{C}^\infty}
+\newcommand{\torus}[0]{\mathbb{T}}
+\newcommand{\cR}[0]{\mathcal{R}}
+\newcommand{\sep}[0]{\:|\:}
+\newcommand{\pd}[2]{{\frac {\partial #1} {\partial #2}}}
+\newcommand{\compinc}[0]{\subset \subset}
+\newcommand{\sH}[0]{\mathscr{H}}
+\newcommand{\Nfil}[0]{\mathcal{N}}
+\newcommand{\g}[0]{\mathfrak{g}}
+\newcommand{\p}[0]{\mathfrak{p}}
+\newcommand{\QC}[0]{\mathfrak{Q}_C}
+\newcommand{\ab}[1]{\vert #1 \vert}
+\newcommand{\st}[0]{\:\straw\:}
+\newcommand{\cGamma}[0]{c\Gamma}
+\newcommand{\sC}[0]{\mathscr{C}}
+\newcommand{\Grp}[0]{\mathrm{Grp}}
+\newcommand{\op}[0]{\mathrm{op}}
+\newcommand{\Func}[0]{\mathrm{Func}}
+\newcommand{\sU}[0]{\mathscr{U}}
+\newcommand{\cV}[0]{\mathcal{V}}
+\newcommand{\sA}[0]{\mathscr{A}}
+\newcommand{\sB}[0]{\mathscr{B}}
+\newcommand{\sX}[0]{\mathscr{X}}
+\newcommand{\sS}[0]{\mathscr{S}}
+\newcommand{\sT}[0]{\mathscr{T}}
+\newcommand{\cB}[0]{\mathcal{B}}
+\newcommand{\cA}[0]{\mathcal{A}}
+\newcommand{\cC}[0]{\mathcal{C}}
+\newcommand{\cO}[0]{\mathcal{O}}
+\newcommand{\cT}[0]{\mathcal{T}}
+\newcommand{\cF}[0]{\mathcal{F}}
+\newcommand{\cG}[0]{\mathcal{G}}
+\newcommand{\nat}[0]{\mathrm{nat}}
+\newcommand{\tr}[0]{\mathrm{tr}}
+\newcommand{\tand}[0]{\text{ and }}
+\newcommand{\tor}[0]{\text{ or }}
+\newcommand{\dcirc}[0]{{\circ\circ}}
+\newcommand{\otherwise}[0]{\text{ otherwise }}
+\newcommand{\Rat}[0]{\mathfrak{Rat}}
+\newcommand{\polring}[1]{[X_1,\cdots,X_{#1}]}
+\newcommand{\compring}[1]{\langle X_1,\cdots,X_{#1}\rangle}
+\newcommand{\fib}[1]{%
+  \mathbin{\mathop{\times}\limits_{#1}}%
+}
+\newcommand{\tens}[1]{%
+  \mathbin{\mathop{\otimes}\displaylimits_{#1}}%
+}
+\newcommand{\comppol}[1]{\langle X_1,\cdots, X_{#1}\rangle}
+
+\title{Compact Lie Groups}
+\author{Based on Lectures given by\\\\Prof. Dr. Tasho Kaletha}
+\date{WSSe 24/25, University of Bonn}
+
+
+\begin{document}
+\maketitle
+
+\section{Basic Lie Theory}
+
+\subsection{Lie Groups}
+
+\begin{definition}
+    \label{definition_1_1}
+    A Lie group is a pair $(G,m)$ such that $G$ is a smooth manifold and $m:G\times G\to G$ is a smooth map giving $G$ a group structure.
+\end{definition}
+\begin{remark}
+    We can derive the smoothness of the inversion $G\ni g\stackrel{i}{\mapsto} g^{-1}\in G$ from Definition \ref{definition_1_1}.
+\end{remark}
+
+\begin{definition}
+    Let $f:M\to N$ be a smooth map of smooth manifolds. $p\in M$ is said to be regular if $T_pf$ is surjective. A point $q\in N$ is a regular value if $f^{-1}(q)$ is non-empty set consisting of regular points.
+\end{definition}
+
+\begin{definition}
+    A subset $N\subseteq M$ of a smooth manifold is called an embedded submanifold if for any point $p\in N$, there is a chart $(U,\varphi)$ of $M$ such that $\varphi(U\cap N)=\varphi(U)\cap (\R^k\times\{0\})$ for some $k$.
+\end{definition}
+
+\begin{theorem}
+    If $q\in N$ is a regular value of $f:M\to N$ then $f^{-1}(q)$ is a closed embedded submanifold of $M$.
+\end{theorem}
+
+\begin{example}
+    $(S^1,+)$ is a compact Lie group. Indeed consider 
+    \begin{equation*}
+    \R^2\ni(x,y)\stackrel{f}{\mapsto}x^2+y^2\in\R.
+    \end{equation*}
+    Then for any $(x,y)\in f^{-1}(1)$, $T_{(x,y)}f = (2x,2y)$. Hence $1$ is a regular value of $f$ and in particular, $f^{-1}(1) = S^1$ is a closed embedded submanifold.
+\end{example}
+
+\begin{lemma}
+    A map $\det:\R^{n\times n}\to \R$ is differentiable at any $A\in\GL_n(\R)$. Furthermore, the derivative is given explicitly as follows.
+    \begin{equation*}
+        d[\det](A)(H) = \det(A)\tr(A^{-1}H).
+    \end{equation*}
+\end{lemma}
+
+\begin{proof}$\:$
+    \par\textbf{Base Case : $A=I$}. 
+    \begin{align*}
+        d[\det](I)(H) &= \det(I+H)-\det(I)\mod{o(H)}.
+    \end{align*}
+    Write $H = (h_1|\cdots|h_n)$ where $h_1,\cdots,h_n$ are column vectors. Then 
+    \begin{align*}
+        \det(I+H) &= \det(I)+\sum_{i=1}^n\det(e_1|\cdots|h_i|\cdots|e_n)\mod{o(H)}\\
+        & = \det(I) +\tr(H).
+    \end{align*}
+    Hence \textbf{Base Case} is shown.
+    \par\textbf{General Case}. Observe 
+    \begin{equation}
+        \det(A+H)-\det(A) = \det(A)(\det(I+A^{-1}H)-\det(I)).
+    \end{equation}
+\end{proof}
+
+\begin{corollary}
+    $1$ is a regular value of $\det$.
+\end{corollary}
+\begin{proof}
+    Follows from the non-degeneracy of $\tr$ (i.e., $\forall Y\in\Mat_{n\times n},\tr(XY) = 0\Rightarrow X=0$).
+\end{proof}
+
+\begin{corollary}
+    $\SL_n(\R)$ is a closed embedded submanifold of $\GL_n(\R)$.
+\end{corollary}
+
+\begin{proposition}
+    For a smooth map $f:M\to N$ and $q\in N$ a regular value, we have 
+    \begin{equation*}
+        T_pf^{-1}(q) = d_pf^{-1}(0)\subseteq T_pM.
+    \end{equation*}
+\end{proposition}
+
+\begin{definition}
+    \begin{equation*}
+        \mathfrak{sl}_n \defeq \tr^{-1}(0).
+    \end{equation*}
+\end{definition}
+
+\begin{example}
+    Let $\langle\cdot,\cdot\rangle:V\times V\to \R$ be a non-degenerate bilinear form. The orthogonal group with respect to $\langle\cdot,\cdot\rangle$ is  
+    \begin{equation*}
+        O(\langle\cdot,\cdot\rangle) \defeq \{A\in\GL_n(\R)\sep \forall x,y, \langle Ax,Ay\rangle = \langle x,y\rangle\}.
+    \end{equation*}
+\end{example}
+
+\begin{notation}
+Due to Sylvester's theorem, there is an isomorphism between $\langle\cdot,\cdot\rangle$ and the quadratic form given by the matrix
+\begin{equation*}
+    \mathrm{diag}(\underbrace{1,\cdots,1}_{p},\underbrace{-1,\cdots,-1}_{q}).
+\end{equation*}
+With this identification, we may write $O(\langle\cdot,\cdot\rangle) = O(p,q)$.
+\end{notation}
+\begin{remark}
+    $O(p,q)$ is compact if and only if $p=0$ or $q=0$.
+\end{remark}
+
+\begin{proposition}
+    For the standard inner product $\langle\cdot,\cdot\rangle$ in $\R^n$, the map
+    \begin{equation*}
+        \Mat_{n\times n}(\R)\ni A\mapsto A^*\langle\cdot|\cdot\rangle \defeq \langle A\cdot|A\cdot\rangle\in S^2(\R^n)^*
+    \end{equation*}
+    is differentiable everywhere and submersive at any $A\in O(p,q)$.
+\end{proposition}
+\begin{proof}
+    \begin{align*}
+        (A+H)^*\langle x|y\rangle-A^*\langle x|y\rangle & \equiv \langle Hx|Ay\rangle+\langle Ax|Hy\rangle +\langle Hx|Hy\rangle\mod{o(H)}\\
+        &\equiv \langle Hx|Ay\rangle+\langle Ax|Hy\rangle\mod{o(H)}.
+    \end{align*}
+    \par For the surjectivity, we first prove for $A=I$. Since any such symmetric bilinear form is given by $B\in\Mat_{n\times n}(\R)$ where $B$ is a symmetric matrix and $\langle Bx|y\rangle$. Using the symmetry of $B$, we see that by setting $H={\frac B 2}$, the surjectivity is shown.
+    \par For the general case, set $H' = AH$, then $(H') = H^*A^* = HA^{-1}$ hence the base case can be applied.
+\end{proof}
+
+
+
+\begin{thebibliography}{9}
+\bibitem{Borel} Linear algebraic groups.
+\bibitem{Milne} Linear algebraic groups.
+\end{thebibliography}
+\end{document}
